@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from 'axios'
 import { teamProperty } from "services/team";
 
 const Ranking = () => {
@@ -7,15 +8,18 @@ const Ranking = () => {
   const usersIds = teamProperty("stackOverflowId").join(";");
 
   const url = `https://api.stackexchange.com/2.3/users/${usersIds}?order=desc&sort=reputation&site=stackoverflow`;
-  const fetchUsers = async () => {
+  /*const fetchUsers = async () => {
     const response = await fetch(url);
     const data = await response.json();
     setUsers(data.items);
-  };
+  };*/
   useEffect(() => {
-    fetchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    axios.get(url)
+      .then(res => {
+        setUsers(res.data.items)
+      })
+      .catch(e => console.log(e))
+  },[]);
 
   const usersData = users.map((user) => {
     return (
