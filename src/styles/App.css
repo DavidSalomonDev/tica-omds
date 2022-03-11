@@ -1,0 +1,11 @@
+.App {
+	display: grid;
+	place-items: center;
+	background-color: #111;
+	height: 100vh;
+	color: #eee;
+}
+
+h1 {
+	font-size: 4rem;
+}
