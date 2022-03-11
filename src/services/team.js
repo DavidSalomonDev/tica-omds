@@ -43,4 +43,8 @@ const team = [
   }
 ];
 
+export const teamProperty = (property) => {
+  return team.map((user) => user[property]);
+};
+
 export default team;

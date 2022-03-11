@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import team from "services/team";
+import { teamProperty } from "services/team";
 
 const Ranking = () => {
   const [users, setUsers] = useState([]);
 
-  const teamIds = team.map((user) => user.stackOverflowId);
-  const usersIds = teamIds.join(";");
+  const usersIds = teamProperty("stackOverflowId").join(";");
 
   const url = `https://api.stackexchange.com/2.3/users/${usersIds}?order=desc&sort=reputation&site=stackoverflow`;
-
   const fetchUsers = async () => {
     const response = await fetch(url);
     const data = await response.json();
     setUsers(data.items);
   };
-
   useEffect(() => {
     fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const usersData = users.map((user) => {
